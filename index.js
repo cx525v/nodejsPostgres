@@ -1,3 +1,4 @@
+//npm init -y
 //npm i express pg
 const express = require('express')
 const bodyParser = require('body-parser')
