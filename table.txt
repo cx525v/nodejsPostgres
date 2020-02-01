@@ -1,6 +1,14 @@
+postgres=# CREATE ROLE me WITH LOGIN PASSWORD 'password';
+postgres=# ALTER ROLE me CREATEDB;
+psql -d postgres -U me
+postgres=> CREATE DATABASE api;
+
 api=>
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
   name VARCHAR(30),
   email VARCHAR(30)
 );
+
+INSERT INTO users (name, email)
+  VALUES ('Jerry', 'jerry@example.com'), ('George', 'george@example.com');
