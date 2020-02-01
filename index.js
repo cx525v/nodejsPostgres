@@ -1,3 +1,4 @@
+//npm i express pg
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
