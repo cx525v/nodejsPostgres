@@ -1,0 +1,108 @@
+postgres=# CREATE ROLE me WITH LOGIN PASSWORD 'password';
+postgres=# ALTER ROLE me CREATEDB;
+psql -d postgres -U me
+postgres=> CREATE DATABASE api;
+
+api=>
+CREATE TABLE users (
+  ID SERIAL PRIMARY KEY,
+  name VARCHAR(30),
+  email VARCHAR(30)
+);
+
+INSERT INTO users (name, email)
+  VALUES ('Jerry', 'jerry@example.com'), ('George', 'george@example.com');
+
+
+connectionstrin = User ID=root;Password=myPassword;Host=localhost;Port=5432;Database=myDataBase;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;
+
+
+create database test;
+drop database test;
+
+create table company(id int primary key not null, name text not null, age int not null, address char(50), salary real);
+create table department(id int primary key not null, dept char(50) not null, emp_id int not null);
+
+drop table company;
+
+insert into company(id, name,age, address, salary) values(4, '..',30,'...',5000);
+insert into company values(...), values(..)
+
+ROW_NUMBER() OVER(
+    [PARTITION BY column_1, column_2,…]
+    [ORDER BY column_3,column_4,…]
+)
+
+SELECT
+   product_id,
+   product_name,
+   group_id,
+   ROW_NUMBER () OVER (ORDER BY product_id)
+FROM
+   products;
+
+
+SELECT
+   product_id,
+   product_name,
+   group_id,
+   ROW_NUMBER () OVER (
+      PARTITION BY group_id
+      ORDER BY
+         product_name
+   )
+FROM
+   products;
+
+
+SELECT
+   *
+FROM
+   (
+      SELECT
+         product_id,
+         product_name,
+         price,
+         ROW_NUMBER () OVER (ORDER BY product_name)
+      FROM
+         products
+   ) x
+WHERE
+   ROW_NUMBER BETWEEN 6 AND 10;
+
+select * from company limit 4 offset 4;
+
+
+CREATE OR REPLACE PROCEDURE transfer(INT, INT, DEC)
+LANGUAGE plpgsql    
+AS $$
+BEGIN
+    -- subtracting the amount from the sender's account 
+    UPDATE accounts 
+    SET balance = balance - $3
+    WHERE id = $1;
+ 
+    -- adding the amount to the receiver's account
+    UPDATE accounts 
+    SET balance = balance + $3
+    WHERE id = $2;
+ 
+    COMMIT;
+END;
+$$;
+CALL transfer(1,2,1000);
+
+
+db.func('SQSP_IsUserNameExists', userName)
+    .then(data => {
+        // data as returned from the function
+    })
+    .catch(error => {
+        // error
+    });
+
+client.query("SELECT * FROM SQSP_IsUserNameExists($1)",[userName], function(err, result) {
+  // some code.
+
+});
+
